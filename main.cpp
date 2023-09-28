@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
 using namespace std;
 
@@ -10,8 +11,19 @@ int main() {
     int stayWins = 0;
 
     cout << "Monty Hall Paradox Simulation\n";
-    cout << "Enter the number of simulations: ";
-    cin >> totalSimulations;
+
+    // Input validation loop
+    bool valid = false;
+    while (!valid) {
+        cout << "Enter the number of simulations: ";
+        if (cin >> totalSimulations && totalSimulations > 0) {
+            valid = true; // Input is valid, exit the loop
+        } else {
+            cout << "Invalid input. Please enter a positive integer.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
 
     // Seed the random number generator
     srand(time(0));
